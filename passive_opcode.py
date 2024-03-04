@@ -1,6 +1,6 @@
-from scapy.all import *
-from scapy.layers.tls.record import TLS
-import cryptography
+from scapy.all import rdpcap
+from scapy.layers.inet import UDP
+# import cryptography
 import opcode_algorithm
 
 '''
@@ -17,14 +17,16 @@ https://security.stackexchange.com/questions/54466/in-ssl-tls-what-part-of-a-dat
 N = 100
 
 if __name__ == "__main__":
-    load_layer("tls")
+    # load_layer("tls")
     opcodes = []
-    file = rdpcap('VPN-PCAPS-01/vpn_hangouts_chat1b.pcap')
+    file = rdpcap('openvpn-server/dump.pcap')
     for packet in file:
-        if TLS in packet:
+        if UDP in packet:
             # application data packets
-            if packet[TLS].type == 23:
-                payload = bytearray(packet[TLS].msg[0].data)[8:]
-                opcode = (payload[0] & 0b11111000) >> 3
-                opcodes.append(opcode)
-    opcode_algorithm.opcode_fingerprinting(opcodes, N)
+            packet_udp:UDP = packet[UDP]
+            payload = bytes(packet_udp.payload)
+            # print(payload)
+            opcode = (payload[0] & 0b11111000) >> 3
+            print(opcode)
+            opcodes.append(opcode)
+    print(opcode_algorithm.opcode_fingerprinting(opcodes, len(opcodes)))
