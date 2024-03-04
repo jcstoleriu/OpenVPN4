@@ -1,5 +1,7 @@
 from scapy.all import *
 from scapy.layers.tls.record import TLS
+import cryptography
+import opcode_algorithm
 
 '''
 Structure of encrypted TLS data depends on negotiated cipher suite
@@ -12,10 +14,17 @@ https://security.stackexchange.com/questions/136180/tls-1-2-and-enable-only-aead
 https://security.stackexchange.com/questions/54466/in-ssl-tls-what-part-of-a-data-packet-is-encrypted-and-authenticated
 '''
 
+N = 100
 
 if __name__ == "__main__":
     load_layer("tls")
-    file = rdpcap('VPN-PCAPS-01/vpn_aim_chat1a.pcap')
+    opcodes = []
+    file = rdpcap('VPN-PCAPS-01/vpn_hangouts_chat1b.pcap')
     for packet in file:
         if TLS in packet:
-            print(packet[TLS].msg)
+            # application data packets
+            if packet[TLS].type == 23:
+                payload = bytearray(packet[TLS].msg[0].data)[8:]
+                opcode = (payload[0] & 0b11111000) >> 3
+                opcodes.append(opcode)
+    opcode_algorithm.opcode_fingerprinting(opcodes, N)
