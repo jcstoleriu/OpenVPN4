@@ -24,23 +24,20 @@ def find_opcodes(packets):
     for packet in packets:
         if UDP in packet:
             # application data packets
-            packet_ip:UDP = packet[UDP]
-            payload = bytes(packet_ip.payload)
+            packet_udp:UDP = packet[UDP]
+            payload = bytes(packet_udp.payload)
 
             opcode = (payload[0] & 0b11111000) >> 3
             opcodes.append(opcode)
     return opcodes
 
 def flag_openvpn_in_capture(filename):
-    opcodes = []
     packets = rdpcap(filename)
     conversations = group_conversations(packets)
 
     results = {}
     for key, packets_in_conversation in conversations.items():
-        print(key)
         opcodes = find_opcodes(packets_in_conversation)
-        print(opcodes)
         results[key] = opcode_algorithm.opcode_fingerprinting(opcodes)
     return results
 
@@ -54,8 +51,11 @@ def main(argv):
     for file in files:
         results = flag_openvpn_in_capture(file)
 
-        for (ip1, ip2), result in results:
-            print(f"conversation between {ip1} and {ip2} Flagged: {result}")
+        items = list(results.items())
+        items.sort(key=lambda k : int(k[1]))
+        print(f"\nIdentified {len([i[1] for i in items if i[1]])} vpn connections in file {file}")
+        for (ip1, ip2), result in items:
+            print(f"Flagged: {result}\tIn conversation between {ip1} and {ip2}")
 
 if __name__ == "__main__":
     main(sys.argv)
