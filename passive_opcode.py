@@ -1,7 +1,8 @@
 from scapy.all import rdpcap
-from scapy.layers.inet import UDP
+from scapy.layers.inet import UDP, IP
 # import cryptography
 import opcode_algorithm
+import sys
 
 '''
 Structure of encrypted TLS data depends on negotiated cipher suite
@@ -14,19 +15,42 @@ https://security.stackexchange.com/questions/136180/tls-1-2-and-enable-only-aead
 https://security.stackexchange.com/questions/54466/in-ssl-tls-what-part-of-a-data-packet-is-encrypted-and-authenticated
 '''
 
-N = 100
+def group_conversations(packets):
+    conversations = {}
+    for packet in packets:
+        if IP in packet:
+            packet_ip:IP = packet[IP]
 
-if __name__ == "__main__":
-    # load_layer("tls")
+            key = [packet_ip.src, packet_ip.dst]
+            key.sort()
+            key = tuple(key)
+            if not key in conversations:
+                conversations[key] = []
+            conversations[key].append(packet)
+    return conversations
+
+def find_opcodes(packets):
     opcodes = []
-    file = rdpcap('openvpn-server/dump.pcap')
-    for packet in file:
+    for packet in packets:
         if UDP in packet:
             # application data packets
-            packet_udp:UDP = packet[UDP]
-            payload = bytes(packet_udp.payload)
-            # print(payload)
+            packet_ip:UDP = packet[UDP]
+            payload = bytes(packet_ip.payload)
+
             opcode = (payload[0] & 0b11111000) >> 3
-            print(opcode)
             opcodes.append(opcode)
-    print(opcode_algorithm.opcode_fingerprinting(opcodes, len(opcodes)))
+    return opcodes
+
+def main(argv):
+    file = rdpcap('openvpn-server/dump.pcap')
+
+    conversations = group_conversations(file)
+
+    for (ip1, ip2), packets in conversations.items():
+        opcodes = find_opcodes(packets)
+
+        print(opcode_algorithm.opcode_fingerprinting(opcodes, len(opcodes)))
+
+
+if __name__ == "__main__":
+    main(sys.argv)
