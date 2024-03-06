@@ -4,16 +4,6 @@ from scapy.layers.inet import UDP, IP
 import opcode_algorithm
 import sys
 
-'''
-Structure of encrypted TLS data depends on negotiated cipher suite
-- AES_GCM (most common in the pcaps) => starts with 8 byte nonce NOT part of encrypted data
-- CBC modes (common in chat files) => starts with 16 byte IV also NOT part of encrypted data
-Sometimes this is not the case. Not sure why.
-ref:
-https://security.stackexchange.com/questions/187924/tls1-2-aes-128-cbc-encrypted-data-size
-https://security.stackexchange.com/questions/136180/tls-1-2-and-enable-only-aead-ciphers-suite-list
-https://security.stackexchange.com/questions/54466/in-ssl-tls-what-part-of-a-data-packet-is-encrypted-and-authenticated
-'''
 
 def group_conversations(packets):
     conversations = {}
@@ -41,16 +31,31 @@ def find_opcodes(packets):
             opcodes.append(opcode)
     return opcodes
 
+def flag_openvpn_in_capture(filename):
+    opcodes = []
+    packets = rdpcap(filename)
+    conversations = group_conversations(packets)
+
+    results = {}
+    for key, packets_in_conversation in conversations.items():
+        print(key)
+        opcodes = find_opcodes(packets_in_conversation)
+        print(opcodes)
+        results[key] = opcode_algorithm.opcode_fingerprinting(opcodes)
+    return results
+
 def main(argv):
-    file = rdpcap('openvpn-server/dump.pcap')
+    files = [
+        "pcap-dumps/mullvad-ovpn-bridge-mode.pcap",
+        "pcap-dumps/synthesized-openvpn-server-dump.pcap",
+        "pcap-dumps/non-vpn.pcap"
+    ]  
 
-    conversations = group_conversations(file)
+    for file in files:
+        results = flag_openvpn_in_capture(file)
 
-    for (ip1, ip2), packets in conversations.items():
-        opcodes = find_opcodes(packets)
-
-        print(opcode_algorithm.opcode_fingerprinting(opcodes, len(opcodes)))
-
+        for (ip1, ip2), result in results:
+            print(f"conversation between {ip1} and {ip2} Flagged: {result}")
 
 if __name__ == "__main__":
     main(sys.argv)
