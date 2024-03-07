@@ -3,12 +3,54 @@ services:
   openvpn:
     cap_add:
      - NET_ADMIN
-    image: kylemanna/openvpn
-    container_name: openvpn
+    build:
+      dockerfile_inline: |
+        FROM kylemanna/openvpn
+        RUN echo "Test"
+        RUN echo "Setting up openVPN server!"
+        RUN touch /etc/openvpn/bro.txt
+        RUN ovpn_genconfig -u udp://10.3.0.222
+        RUN printf "okay\nokay\n\nokay\okay" | ovpn_initpki nopass
+        RUN easyrsa build-client-full client nopass
+        RUN ovpn_getclient client > /client.ovpn
     ports:
      - "1194:1194/udp"
-    restart: always
+    restart: no
+    command: sh -c "cp /client.ovpn /data && ovpn_run"
     volumes:
-     - ./openvpn-data/conf:/etc/openvpn
+     - ./data:/data
     devices:
       - /dev/net/tun
+    networks:
+      home:
+        ipv4_address: 10.3.0.222
+
+  ubuntu:
+    image: ubuntu
+    container_name: client
+    build: 
+      dockerfile_inline: |
+        FROM ubuntu
+        RUN apt update
+        RUN apt install openvpn -y
+        RUN mkdir -p /dev/net
+        RUN mknod /dev/net/tun c 10 200
+        RUN chmod 600 /dev/net/tun
+    command: tail -F anything
+    networks:
+      home:
+        ipv4_address: 10.3.0.40
+    volumes:
+     - ./data:/data
+
+
+networks:
+  home:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.name: home
+    ipam:
+      config:
+        - subnet: 10.3.0.0/24
+          gateway: 10.3.0.10
+
