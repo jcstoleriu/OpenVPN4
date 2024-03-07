@@ -1,6 +1,6 @@
 version: '2'
 services:
-  openvpn:
+  server:
     cap_add:
      - NET_ADMIN
     build:
@@ -25,24 +25,32 @@ services:
       home:
         ipv4_address: 10.3.0.222
 
-  ubuntu:
+  demo:
     image: ubuntu
+    command: tail -F anything
+    networks:
+      home:
+        ipv4_address: 10.3.0.55
+
+  client:
     container_name: client
+    cap_add:
+      - NET_ADMIN
     build: 
       dockerfile_inline: |
         FROM ubuntu
         RUN apt update
         RUN apt install openvpn -y
-        RUN mkdir -p /dev/net
-        RUN mknod /dev/net/tun c 10 200
-        RUN chmod 600 /dev/net/tun
-    command: tail -F anything
+    command: sh -c "openvpn --config /data/client.ovpn && tail -F anything"
+        # RUN mkdir -p /dev/net
+        # RUN mknod /dev/net/tun c 10 200
+        # RUN chmod 600 /dev/net/tun
     networks:
       home:
         ipv4_address: 10.3.0.40
     volumes:
      - ./data:/data
-
+     - /dev/net:/dev/net:z
 
 networks:
   home:
