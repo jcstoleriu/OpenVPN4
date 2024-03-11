@@ -46,14 +46,14 @@ def main(argv):
         "pcap-dumps/mullvad-ovpn-bridge-mode.pcap",
         "pcap-dumps/synthesized-openvpn-server-dump.pcap",
         "pcap-dumps/non-vpn.pcap"
-    ]  
+    ]
 
     for file in files:
         results = flag_openvpn_in_capture(file)
 
         items = list(results.items())
         items.sort(key=lambda k : int(k[1]))
-        print(f"\nIdentified {len([i[1] for i in items if i[1]])} vpn connections in file {file}")
+        print(f"\nIdentified {len([i[1] for i in items if i[1]])} of {len(items)} vpn connections in file {file}")
         for (ip1, ip2), result in items:
             print(f"Flagged: {result}\tIn conversation between {ip1} and {ip2}")
 
