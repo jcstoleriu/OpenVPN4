@@ -1,6 +1,8 @@
 import scapy.all as scapy
 from scapy.layers.tls.record import TLS
 import matplotlib.pyplot as plt
+import cryptography
+from scapy.packet import Raw
 
 
 def similar_to_ack_candidate(packet, ack_candidate):
@@ -26,8 +28,10 @@ def ack_fingerprinting(packets):
             # Check if there is a TLS layer
 
         # TODO: This is not reliable... Unfortunately the TLS layer is not always detected even though it is there
-        if TLS in packet:
+        if packet.haslayer(TLS):
             continue
+
+        print(TLS(packet[Raw].load))
         packet_udp:scapy.UDP = packet[scapy.UDP]
         # This is now our candidate for an ACK package
         ack_candidate = packet_udp
