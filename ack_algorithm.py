@@ -3,12 +3,11 @@ from scapy.layers.tls.record import TLS
 import matplotlib.pyplot as plt
 import cryptography
 from scapy.packet import Raw
+from openvpn_header import OpenVPN, OpenVPNMinimal
 
 
 def similar_to_ack_candidate(packet, ack_candidate):
-    if scapy.UDP not in packet:
-        return False
-    if TLS in packet:
+    if scapy.UDP not in packet or TLS in packet or ack_candidate is None:
         return False
     
     ack_candiate_size = len(ack_candidate)
@@ -26,12 +25,19 @@ def ack_fingerprinting(packets):
         if scapy.UDP not in packet:
             continue
             # Check if there is a TLS layer
+        
+        packet_openvpn:OpenVPN = None
+        if OpenVPN in packet:
+            packet_openvpn = packet[OpenVPN]
+        elif OpenVPNMinimal in packet:
+            packet_openvpn = packet[OpenVPNMinimal]
+
 
         # TODO: This is not reliable... Unfortunately the TLS layer is not always detected even though it is there
-        if packet.haslayer(TLS):
+        if packet_openvpn is None or len(packet_openvpn.payload) > 0:
             continue
-
-        print(TLS(packet[Raw].load))
+        
+        packet.show()
         packet_udp:scapy.UDP = packet[scapy.UDP]
         # This is now our candidate for an ACK package
         ack_candidate = packet_udp

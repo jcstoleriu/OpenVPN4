@@ -4,6 +4,7 @@ from scapy.layers.inet import UDP, IP
 import opcode_algorithm
 import ack_algorithm
 import sys
+from openvpn_header import OpenVPN, OpenVPNMinimal
 
 
 def group_conversations(packets):
@@ -45,9 +46,12 @@ def flag_openvpn_in_capture(filename):
 def main(argv):
     files = [
         "pcap-dumps/mullvad-ovpn-bridge-mode.pcap",
-        "pcap-dumps/synthesized-openvpn-server-dump.pcap",
-        "pcap-dumps/non-vpn.pcap"
+        # "pcap-dumps/synthesized-openvpn-server-dump.pcap",
+        # "pcap-dumps/non-vpn.pcap"
     ]
+
+    if len(argv) > 1:
+        files = argv[1:]
 
     for file in files:
         results, conversations = flag_openvpn_in_capture(file)
@@ -56,7 +60,13 @@ def main(argv):
         items.sort(key=lambda k : int(k[1]))
         print(f"\nIdentified {len([i[1] for i in items if i[1]])} of {len(items)} vpn connections in file {file}")
         for (ip1, ip2), result in items:
+            # if result:
+            #     conv = conversations[(ip1, ip2)]
+            #     packets = [(i, p) for (i, p) in enumerate(conv) if OpenVPNMinimal in p]
+            #     print([i for (i, p) in packets])
+            #     packets[1][1][OpenVPNMinimal].show()
             print(f"Flagged: {result}\tIn conversation between {ip1} and {ip2}")
+
             ack_flag_result = ack_algorithm.ack_fingerprinting(conversations[(ip1, ip2)])
             print(f"ACK flag result: {ack_flag_result}")
 
