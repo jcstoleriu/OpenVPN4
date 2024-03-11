@@ -2,6 +2,7 @@ from scapy.all import rdpcap
 from scapy.layers.inet import UDP, IP
 # import cryptography
 import opcode_algorithm
+import ack_algorithm
 import sys
 
 
@@ -39,7 +40,7 @@ def flag_openvpn_in_capture(filename):
     for key, packets_in_conversation in conversations.items():
         opcodes = find_opcodes(packets_in_conversation)
         results[key] = opcode_algorithm.opcode_fingerprinting(opcodes)
-    return results
+    return results, conversations
 
 def main(argv):
     files = [
@@ -49,13 +50,16 @@ def main(argv):
     ]
 
     for file in files:
-        results = flag_openvpn_in_capture(file)
+        results, conversations = flag_openvpn_in_capture(file)
 
         items = list(results.items())
         items.sort(key=lambda k : int(k[1]))
         print(f"\nIdentified {len([i[1] for i in items if i[1]])} of {len(items)} vpn connections in file {file}")
         for (ip1, ip2), result in items:
             print(f"Flagged: {result}\tIn conversation between {ip1} and {ip2}")
+            ack_flag_result = ack_algorithm.ack_fingerprinting(conversations[(ip1, ip2)])
+            print(f"ACK flag result: {ack_flag_result}")
+
 
 if __name__ == "__main__":
     main(sys.argv)
