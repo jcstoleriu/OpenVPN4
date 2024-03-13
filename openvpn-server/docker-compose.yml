@@ -40,11 +40,8 @@ services:
       dockerfile_inline: |
         FROM ubuntu
         RUN apt update
-        RUN apt install openvpn -y
+        RUN apt install -y openvpn wget
     command: sh -c "openvpn --config /data/client.ovpn && tail -F anything"
-        # RUN mkdir -p /dev/net
-        # RUN mknod /dev/net/tun c 10 200
-        # RUN chmod 600 /dev/net/tun
     networks:
       home:
         ipv4_address: 10.3.0.40
