@@ -1,13 +1,31 @@
 version: '2'
 services:
+
+  # Network traffic capture container, this runs tcpdump and creates a pcap file.
+  capture:
+    cap_add:
+     - NET_ADMIN
+    container_name: capture
+    build: 
+      dockerfile_inline: |
+        FROM ubuntu
+        RUN apt-get update
+        RUN apt-get install -y tcpdump
+    command: sh -c "timeout 35 tcpdump -w /data/capture.pcap -i testnettcptls"
+    # command: tail -F anything
+    volumes:
+     - ./data:/data
+    network_mode: host
+
+  # OpenVPN server, the client container connects to this.
   server:
     cap_add:
      - NET_ADMIN
     build:
       dockerfile_inline: |
         FROM kylemanna/openvpn
-        RUN echo "Test"
         RUN echo "Setting up openVPN server!"
+        RUN touch /etc/openvpn/bro.txt
         RUN ovpn_genconfig -u udp://10.3.0.222
         RUN printf "okay\nokay\n\nokay\okay" | ovpn_initpki nopass
         RUN easyrsa build-client-full client nopass
@@ -18,7 +36,7 @@ services:
     ports:
      - "1194:1194/udp"
     restart: no
-    command: sh -c "cp /client.ovpn /data && cp /etc/openvpn/ta.key /data && ovpn_run"
+    command: sh -c "cp /client.ovpn /data && ovpn_run"
     volumes:
      - ./data:/data
     devices:
@@ -26,14 +44,10 @@ services:
     networks:
       home:
         ipv4_address: 10.3.0.222
+    depends_on:
+      - capture
 
-  demo:
-    image: ubuntu
-    command: tail -F anything
-    networks:
-      home:
-        ipv4_address: 10.3.0.55
-
+  # OpenVPN client, connects to the server container and makes some HTTPS requests.
   client:
     container_name: client
     cap_add:
@@ -41,22 +55,28 @@ services:
     build: 
       dockerfile_inline: |
         FROM ubuntu
-        RUN apt update
-        RUN apt install -y openvpn wget
-    command: sh -c "openvpn --config /data/client.ovpn && tail -F anything"
+        RUN apt-get update
+        RUN apt-get install -y openvpn wget curl iputils-ping
+    command: sh -c "openvpn --config /data/client.ovpn & ./client.sh"
+    # command: tail -F anything
     networks:
       home:
         ipv4_address: 10.3.0.40
     volumes:
      - ./data:/data
+     - ./../client.sh:/client.sh
      - /dev/net:/dev/net:z
+    depends_on:
+      - capture
+      - server
 
 networks:
   home:
     driver: bridge
     driver_opts:
-      com.docker.network.bridge.name: home
+      com.docker.network.bridge.name: testnettcptls
     ipam:
       config:
         - subnet: 10.3.0.0/24
           gateway: 10.3.0.10
+
