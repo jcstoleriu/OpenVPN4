@@ -1,1 +1,9 @@
 docker/**/data/*
+
+venv
+.venv
+
+openvpn-server/openvpn-data
+openvpn-server/client.ovpn
+
+__pycache__
