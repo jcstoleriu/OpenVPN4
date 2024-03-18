@@ -9,4 +9,4 @@ curl -s "https://google.com/" > google.html
 
 ping -c 3 8.8.8.8
 
-curl -s "https://www.tudelft.nl/" tudelft.html
+curl -s "https://www.tudelft.nl/" > tudelft.html
