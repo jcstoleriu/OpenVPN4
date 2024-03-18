@@ -9,12 +9,12 @@ services:
         RUN echo "Test"
         RUN echo "Setting up openVPN server!"
         RUN touch /etc/openvpn/bro.txt
-        RUN ovpn_genconfig -u udp://10.3.0.222
+        RUN ovpn_genconfig -u tcp://10.3.0.222 -k "10 20"
         RUN printf "okay\nokay\n\nokay\okay" | ovpn_initpki nopass
         RUN easyrsa build-client-full client nopass
         RUN ovpn_getclient client > /client.ovpn
     ports:
-     - "1194:1194/udp"
+     - "1194:1194/tcp"
     restart: no
     command: sh -c "cp /client.ovpn /data && ovpn_run"
     volumes:
