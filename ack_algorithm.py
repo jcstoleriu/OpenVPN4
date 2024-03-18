@@ -19,29 +19,40 @@ def similar_to_ack_candidate(packet, ack_candidate):
 
 def ack_fingerprinting(packets):
     ack_candidate = None
-    for packet in packets[2:]:
+    i = 0
+    for packet in packets:
         if UDP not in packet:
             continue
         # Check if there is a TLS layer
         packet_udp:UDP = packet[UDP]
 
-        packet_openvpn: OpenVPN = packet_udp.payload
+        # packet_openvpn: OpenVPN = packet_udp.payload
 
-        if not OpenVPN in packet_openvpn:
-            # TODO: fix this. For packets that are not openvpn some errors occur. currently we just ignore packets like this
-            try:
-                packet_openvpn = OpenVPN(packet_openvpn.original)
-            except Exception:
-                continue
+        # if not OpenVPN in packet_openvpn:
+        #     # TODO: fix this. For packets that are not openvpn some errors occur. currently we just ignore packets like this
+        #     try:
+        #         packet_openvpn = OpenVPN(packet_openvpn.original)
+        #     except Exception:
+        #         continue
 
-        if not packet_openvpn.is_valid_packet() or len(packet_openvpn.payload) > 0:
+        # if not packet_openvpn.is_valid_packet() or len(packet_openvpn.payload) > 0:
+        #     continue
+        if not len(packet_udp.payload.original) in range(22, 55):
             continue
         
+        if i < 2:
+            i += 1
+            continue
+
         packet_udp:scapy.UDP = packet[scapy.UDP]
         # This is now our candidate for an ACK package
         ack_candidate = packet
-        print(f"Found ack candidate: {ack_candidate[IP].id} {len(ack_candidate)}")
+        # print(f"Found ack candidate: {ack_candidate[IP].id} {len(ack_candidate)}")
         break
+
+    # no ack candidate found
+    if ack_candidate is None:
+        return False
 
     # Group packets in bins of 10
     bins = []
@@ -51,7 +62,6 @@ def ack_fingerprinting(packets):
         else:
             bins.append(packets[i:i+10])
 
-
     # print(f"Found {len(bins)} bins")
 
     # For each bin count the number of packets that are similar to the ack candidate
@@ -59,6 +69,9 @@ def ack_fingerprinting(packets):
 
     # plt.plot(histogram[:10])
     # plt.show()
+
+    if len(histogram) < 5:
+        return False
 
     if histogram[0] < 1 or histogram[0] > 3:
         return False
@@ -70,6 +83,10 @@ def ack_fingerprinting(packets):
     for i in range(5, len(histogram)):
         if histogram[i] > 1:
             return False
+        
+
+    # plt.plot(histogram[:10])
+    # plt.show()
 
     return True
 

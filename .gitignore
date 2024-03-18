@@ -7,3 +7,5 @@ openvpn-server/openvpn-data
 openvpn-server/client.ovpn
 
 __pycache__
+
+pcap-dumps/*.pcap
