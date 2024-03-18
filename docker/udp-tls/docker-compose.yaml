@@ -1,0 +1,62 @@
+version: '2'
+services:
+  server:
+    cap_add:
+     - NET_ADMIN
+    build:
+      dockerfile_inline: |
+        FROM kylemanna/openvpn
+        RUN echo "Test"
+        RUN echo "Setting up openVPN server!"
+        RUN ovpn_genconfig -u udp://10.3.0.222
+        RUN printf "okay\nokay\n\nokay\okay" | ovpn_initpki nopass
+        RUN easyrsa build-client-full client nopass
+        RUN openvpn --genkey --secret /etc/openvpn/ta.key
+        RUN echo "tls-auth /etc/openvpn/ta.key 0" >> /etc/openvpn/openvpn.conf
+        RUN ovpn_getclient client > /client.ovpn
+        RUN echo "tls-auth /data/ta.key 1" >> /client.ovpn
+    ports:
+     - "1194:1194/udp"
+    restart: no
+    command: sh -c "cp /client.ovpn /data && cp /etc/openvpn/ta.key /data && ovpn_run"
+    volumes:
+     - ./data:/data
+    devices:
+      - /dev/net/tun
+    networks:
+      home:
+        ipv4_address: 10.3.0.222
+
+  demo:
+    image: ubuntu
+    command: tail -F anything
+    networks:
+      home:
+        ipv4_address: 10.3.0.55
+
+  client:
+    container_name: client
+    cap_add:
+      - NET_ADMIN
+    build: 
+      dockerfile_inline: |
+        FROM ubuntu
+        RUN apt update
+        RUN apt install -y openvpn wget
+    command: sh -c "openvpn --config /data/client.ovpn && tail -F anything"
+    networks:
+      home:
+        ipv4_address: 10.3.0.40
+    volumes:
+     - ./data:/data
+     - /dev/net:/dev/net:z
+
+networks:
+  home:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.name: home
+    ipam:
+      config:
+        - subnet: 10.3.0.0/24
+          gateway: 10.3.0.10
