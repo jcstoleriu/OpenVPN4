@@ -25,12 +25,14 @@ services:
       home:
         ipv4_address: 10.3.0.222
 
-  demo:
+  capture:
     image: ubuntu
     command: tail -F anything
     networks:
       home:
         ipv4_address: 10.3.0.55
+    volumes:
+     - ./data:/data
 
   client:
     container_name: client
