@@ -1,24 +1,36 @@
 from scapy.all import rdpcap
-from scapy.layers.inet import UDP, IP
+from scapy.layers.inet import UDP, IP, TCP
 # import cryptography
 import opcode_algorithm
 import ack_algorithm
 import sys
-from openvpn_header import OpenVPN, OpenVPNMinimal
+from openvpn_header import OpenVPN, OpenVPN
 
 
 def group_conversations(packets):
     conversations = {}
-    for packet in packets:
+    ids = {}
+    for i, packet in enumerate(packets):
         if IP in packet:
             packet_ip:IP = packet[IP]
+            port_src = 0
+            port_dst = 0
+            if UDP in packet:
+                port_src = packet[UDP].sport
+                port_dst = packet[UDP].dport
+            if TCP in packet:
+                port_src = packet[TCP].sport
+                port_dst = packet[TCP].dport
 
-            key = [packet_ip.src, packet_ip.dst]
-            key.sort()
+            key = [(packet_ip.src, port_src), (packet_ip.dst, port_dst)]
+            key.sort(key=lambda k : k[0] + str(k[1]))
             key = tuple(key)
             if not key in conversations:
                 conversations[key] = []
+                ids[key] = i
             conversations[key].append(packet)
+    
+    conversations_with_id = {ids[key]:v for key, v in conversations.items()}
     return conversations
 
 def find_opcodes(packets):
@@ -60,13 +72,8 @@ def main(argv):
         items.sort(key=lambda k : int(k[1]))
         print(f"\nIdentified {len([i[1] for i in items if i[1]])} of {len(items)} vpn connections in file {file}")
         for (ip1, ip2), result in items:
-            # if result:
-            #     conv = conversations[(ip1, ip2)]
-            #     packets = [(i, p) for (i, p) in enumerate(conv) if OpenVPNMinimal in p]
-            #     print([i for (i, p) in packets])
-            #     packets[1][1][OpenVPNMinimal].show()
             print(f"Flagged: {result}\tIn conversation between {ip1} and {ip2}")
-
+            
             ack_flag_result = ack_algorithm.ack_fingerprinting(conversations[(ip1, ip2)])
             print(f"ACK flag result: {ack_flag_result}")
 
