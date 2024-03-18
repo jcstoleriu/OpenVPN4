@@ -4,7 +4,6 @@ from scapy.layers.inet import UDP, IP, TCP
 import opcode_algorithm
 import ack_algorithm
 import sys, tqdm
-from openvpn_header import OpenVPN, OpenVPN
 
 def get_key(packet):
     key = None
@@ -68,14 +67,8 @@ def flag_openvpn_in_capture(filename):
 def main(argv):
     files = [
         "pcap-dumps/mullvad-ovpn-bridge-mode.pcap",
-        # "pcap-dumps/synthesized-openvpn-server-dump.pcap",
-        # "pcap-dumps/non-vpn.pcap",
-        # "pcap-dumps/email1a.pcap",
-        # "pcap-dumps/vpn_skype_files1b.pcap",
-        # "pcap-dumps/vpn_icq_chat1a.pcap",
-        # "pcap-dumps/nonvpn_rdp_capture4.pcap",
-        # "pcap-dumps/vpn_rdp_capture1.pcap",
-        # "pcap-dumps/vpn_skype-chat_capture1.pcap",
+        "pcap-dumps/synthesized-openvpn-server-dump.pcap",
+        "pcap-dumps/non-vpn.pcap",
     ]
 
     if len(argv) > 1:
@@ -91,10 +84,11 @@ def main(argv):
             
             print(f"ACK flag result: {result[1]}")
         
-        print(f"############ Summary for file {file} ############")
+        print(f"\n############ Summary for file {file} ############")
         print(f"Found {len(conversations)} conversations")
         print(f"{len([v for v in items if v[1][0]])} flagged as VPN by the opcode algorithm")
         print(f"{len([v for v in items if v[1][1]])} flagged as VPN by the ACK algorithm")
+        print(f"################################################\n")
 
 if __name__ == "__main__":
     main(sys.argv)
