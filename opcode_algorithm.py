@@ -1,4 +1,5 @@
 from scapy.layers.inet import UDP, TCP
+import logging
 from scapy.all import PcapReader
 from utils import group_conversations, print_summary
 
@@ -31,7 +32,8 @@ def find_opcodes(packets):
             if TCP in packet:
                 packet_tcp:TCP = packet[TCP]
                 payload = bytes(packet_tcp.payload)
-        except Exception:
+        except Exception as e:
+            logging.error(f"Could not read package: {e}")
             continue
 
         if payload is None or len(payload) < 1:

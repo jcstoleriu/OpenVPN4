@@ -63,11 +63,11 @@ def main(argv):
                 if experiment_dataset_key in config_datasets:
                     experiment_datasets += config_datasets[experiment_dataset_key]
                 else:
-                    logging.info(f"dataset {experiment_dataset_key} not found in config. Skipping it.")
+                    logging.error(f"dataset {experiment_dataset_key} not found in config. Skipping it.")
 
             for j, file in enumerate(experiment_datasets):
                 if not os.path.exists(file):
-                    logging.info(f"File {file} does not exist. Skipping it.")
+                    logging.error(f"File {file} does not exist. Skipping it.")
                     continue
                 logging.info(f"Fingerprinting file '{file}' ({j+1} of {len(experiment_datasets)} files)...")
                 
