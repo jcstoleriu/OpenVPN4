@@ -20,7 +20,7 @@
             "/datasets/ISCXVPN2016/PCAPs/NonVPN-PCAPs-01/facebook_video2a.pcap",
             "/datasets/ISCXVPN2016/PCAPs/NonVPN-PCAPs-01/email2b.pcap"
         ],
-        "ISCXVPN2016-VPN-PCAPS-01":[
+        "ISCXVPN2016-VPN-PCAPs-01":[
             "/datasets/ISCXVPN2016/PCAPs/VPN-PCAPS-01/vpn_hangouts_chat1b.pcap",
             "/datasets/ISCXVPN2016/PCAPs/VPN-PCAPS-01/vpn_hangouts_chat1a.pcap",
             "/datasets/ISCXVPN2016/PCAPs/VPN-PCAPS-01/vpn_ftps_A.pcap",
@@ -297,8 +297,7 @@
             "ISCXVPN2016-NonVPN-PCAPs-01",
             "ISCXVPN2016-VPN-PCAPs-01",
             "ISCXVPN2016-NonVPN-PCAPs-02",
-            "ISCXVPN2016-VPN-PCAPs-02",
-            "VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset"
+            "ISCXVPN2016-VPN-PCAPs-02"
 
         ]
         
@@ -307,7 +306,12 @@
         "name": "VPN Detection ACK",
         "algorithm":"ack",
         "datasets":[
-            "pcap-dumps"
+            "pcap-dumps",
+            "ISCXVPN2016-NonVPN-PCAPs-01",
+            "ISCXVPN2016-VPN-PCAPs-01",
+            "ISCXVPN2016-NonVPN-PCAPs-02",
+            "ISCXVPN2016-VPN-PCAPs-02"
+
         ]
     },
     {
@@ -317,8 +321,12 @@
             "xor_opcodes":true
         },
         "datasets":[
-            "pcap-dumps"
-        ]  
+            "pcap-dumps",
+            "ISCXVPN2016-NonVPN-PCAPs-01",
+            "ISCXVPN2016-VPN-PCAPs-01",
+            "ISCXVPN2016-NonVPN-PCAPs-02",
+            "ISCXVPN2016-VPN-PCAPs-02"
+        ]
     }
     ],
 

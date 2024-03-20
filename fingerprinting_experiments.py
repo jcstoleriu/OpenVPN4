@@ -60,7 +60,10 @@ def main(argv):
 
             experiment_datasets = []
             for experiment_dataset_key in experiment_dataset_keys:
-                experiment_datasets += config_datasets[experiment_dataset_key]
+                if experiment_dataset_key in config_datasets:
+                    experiment_datasets += config_datasets[experiment_dataset_key]
+                else:
+                    logging.info(f"dataset {experiment_dataset_key} not found in config. Skipping it.")
 
             for j, file in enumerate(experiment_datasets):
                 if not os.path.exists(file):
@@ -72,7 +75,7 @@ def main(argv):
 
                 if dry_run:
                     continue
-                
+
                 results = algorithm(file, params=params, printer=lambda x : logging.info(x))
 
                 # print(f"Results for experiment {experiment['name']}")
