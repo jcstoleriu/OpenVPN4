@@ -1,4 +1,5 @@
 from scapy.layers.inet import UDP, IP, TCP
+import tqdm
 
 def get_connection_key(packet):
     key = None
@@ -20,10 +21,14 @@ def get_connection_key(packet):
 
     return key
 
-def group_conversations(packets):
+def group_conversations(packets, progressbar=False):
     conversations = {}
     ids = {}
-    for i, packet in enumerate(packets):
+
+    packets_iterator = packets
+    if progressbar:
+        packets_iterator = tqdm.tqdm(packets)
+    for i, packet in enumerate(packets_iterator):
         key = get_connection_key(packet)
         if key is None:
             continue

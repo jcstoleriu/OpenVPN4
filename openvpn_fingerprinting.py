@@ -1,4 +1,4 @@
-from scapy.all import rdpcap
+from scapy.all import PcapReader
 from scapy.layers.inet import UDP, IP, TCP
 # import cryptography
 import opcode_algorithm
@@ -6,12 +6,12 @@ import ack_algorithm
 from utils import group_conversations
 import sys, tqdm
 
-
-def flag_openvpn_in_capture(filename):
-    packets = rdpcap(filename)
-    conversations, conversations_with_id = group_conversations(packets)
-    results_opcode = opcode_algorithm.fingerprint_packets(filename, conversations=conversations)
-    results_ack = ack_algorithm.fingerprint_packets(filename, conversations=conversations)
+def flag_openvpn_in_capture(filename, params={}):
+    packets = PcapReader(filename)
+    print(f"Reading file {filename}...")
+    conversations, conversations_with_id = group_conversations(packets, progressbar=True)
+    results_opcode = opcode_algorithm.fingerprint_packets(filename, conversations=conversations, params=params)
+    results_ack = ack_algorithm.fingerprint_packets(filename, conversations=conversations, params=params)
 
     results = {}
     for key, packets_in_conversation in conversations.items():
@@ -26,11 +26,17 @@ def main(argv):
         "pcap-dumps/non-vpn.pcap",
     ]
 
+    params = {}
+    if "-o" in argv:
+        i = argv.index("-o")
+        params[opcode_algorithm.XOR_OPCODES_KEY] = True
+        argv.pop(i)
+
     if len(argv) > 1:
         files = argv[1:]
 
     for file in files:
-        results, conversations = flag_openvpn_in_capture(file)
+        results, conversations = flag_openvpn_in_capture(file, params=params)
 
         items = list(results.items())
         items.sort(key=lambda k : sum([int(v) for v in k[1]]))
