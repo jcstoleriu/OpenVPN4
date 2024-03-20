@@ -9,3 +9,5 @@ openvpn-server/client.ovpn
 __pycache__
 
 pcap-dumps/*.pcap
+
+output.csv
