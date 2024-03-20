@@ -1,0 +1,23 @@
+{
+    "experiments":[
+        {
+        "name": "VPN Detection Opcode",
+        "algorithm":"opcode",
+        "files":[
+            "pcap-dumps/non-vpn.pcap",
+            "pcap-dumps/mullvad-ovpn-bridge-mode.pcap"
+        ]
+        
+    },
+    {
+        "name": "VPN Detection ACK",
+        "algorithm":"ack",
+        "files":[
+            "pcap-dumps/non-vpn.pcap",
+            "pcap-dumps/mullvad-ovpn-bridge-mode.pcap"
+        ]
+    }
+    ],
+
+    "output":"output.csv"
+}
