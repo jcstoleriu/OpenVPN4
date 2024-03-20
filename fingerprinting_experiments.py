@@ -51,7 +51,7 @@ def main(argv):
             experiment_name = experiment["name"]
             algorithm_type = experiment["algorithm"]
             algorithm = ALGORITHMS[algorithm_type]
-            logging.info(f"Running experiment '{experiment_name}' with algorithm {algorithm_type} ({+1} of {len(experiments)} experiments)")
+            logging.info(f"Running experiment '{experiment_name}' with algorithm {algorithm_type} ({i+1} of {len(experiments)} experiments)")
 
             experiment_datasets = []
             for experiment_dataset_key in experiment_dataset_keys:
