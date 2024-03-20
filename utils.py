@@ -21,6 +21,15 @@ def get_connection_key(packet):
 
     return key
 
+def print_summary(file, conversations, items, printer=lambda x : print(x)):
+    printer("")
+    printer(f"############ Summary for file {file} ############")
+    printer(f"Found {len(conversations)} conversations")
+    printer(f"{len([v for v in items if v[1][0]])} flagged as VPN by the opcode algorithm")
+    printer(f"{len([v for v in items if v[1][1]])} flagged as VPN by the ACK algorithm")
+    printer(f"################################################")
+    printer("")
+
 def group_conversations(packets, progressbar=False):
     conversations = {}
     ids = {}

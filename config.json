@@ -1,20 +1,26 @@
 {
+    "datasets": {
+        "pcap-dumps": [
+            "pcap-dumps/non-vpn.pcap",
+            "pcap-dumps/mullvad-ovpn-bridge-mode.pcap",
+            "pcap-dumps/mullvad-ovpn-tcp.pcap",
+            "pcap-dumps/synthesized-openvpn-server-dump.pcap"
+        ]
+    },
     "experiments":[
         {
         "name": "VPN Detection Opcode",
         "algorithm":"opcode",
-        "files":[
-            "pcap-dumps/non-vpn.pcap",
-            "pcap-dumps/mullvad-ovpn-bridge-mode.pcap"
+        "datasets":[
+            "pcap-dumps"
         ]
         
     },
     {
         "name": "VPN Detection ACK",
         "algorithm":"ack",
-        "files":[
-            "pcap-dumps/non-vpn.pcap",
-            "pcap-dumps/mullvad-ovpn-bridge-mode.pcap"
+        "datasets":[
+            "pcap-dumps"
         ]
     },
     {
@@ -23,10 +29,9 @@
         "params":{
             "xor_opcodes":true
         },
-        "files":[
-            "pcap-dumps/non-vpn.pcap",
-            "pcap-dumps/mullvad-ovpn-bridge-mode.pcap"
-        ]   
+        "datasets":[
+            "pcap-dumps"
+        ]  
     }
     ],
 

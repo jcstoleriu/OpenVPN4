@@ -5,9 +5,9 @@ import matplotlib.pyplot as plt
 import cryptography
 from scapy.packet import Raw
 from openvpn_header import OpenVPN
-from utils import group_conversations
+from utils import group_conversations, print_summary
 
-def fingerprint_packets(file, conversations=None, params={}):
+def fingerprint_packets(file, conversations=None, params={}, printer=lambda x:x):
     if conversations is None:
         packets = scapy.rdpcap(file)
         conversations, conversations_with_id = group_conversations(packets)
@@ -17,6 +17,8 @@ def fingerprint_packets(file, conversations=None, params={}):
         result = ack_fingerprinting(packets_in_conversation, params=params)
 
         results[key] = result
+
+    print_summary(file, conversations, results, printer=printer)
 
     return results
 
