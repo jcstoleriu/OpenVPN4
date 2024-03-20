@@ -1,4 +1,5 @@
 import scapy.all as scapy
+from scapy.all import PcapReader
 from scapy.layers.tls.record import TLS
 from scapy.layers.inet import UDP, IP
 import matplotlib.pyplot as plt
@@ -9,7 +10,7 @@ from utils import group_conversations, print_summary
 
 def fingerprint_packets(file, conversations=None, params={}, printer=lambda x:x):
     if conversations is None:
-        packets = scapy.rdpcap(file)
+        packets = PcapReader(file)
         conversations, conversations_with_id = group_conversations(packets)
 
     results = {}

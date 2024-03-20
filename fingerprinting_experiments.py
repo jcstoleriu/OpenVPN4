@@ -17,6 +17,11 @@ PARAMS_KEY = "params"
 
 def main(argv):
     config_path = DEFAULT_CONFIG_PATH
+    dry_run = False
+
+    if "-d" in argv:
+        dry_run = True
+        argv.remove("-d")
 
     if len(argv) > 1:
         config_path = argv[1]
@@ -65,6 +70,9 @@ def main(argv):
                 
                 params = experiment.get(PARAMS_KEY, None)
 
+                if dry_run:
+                    continue
+                
                 results = algorithm(file, params=params, printer=lambda x : logging.info(x))
 
                 # print(f"Results for experiment {experiment['name']}")
