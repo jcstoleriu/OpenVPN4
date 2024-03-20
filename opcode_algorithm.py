@@ -1,11 +1,11 @@
 from scapy.layers.inet import UDP, TCP
-from scapy.all import rdpcap
+from scapy.all import PcapReader
 from utils import group_conversations, print_summary
 
 # fingerprint packets in pcap files
 def fingerprint_packets(file, conversations=None, params={}, printer=lambda x : x):
     if conversations is None:
-        packets = rdpcap(file)
+        packets = PcapReader(file)
         conversations, conversations_with_id = group_conversations(packets)
 
     results = {}
