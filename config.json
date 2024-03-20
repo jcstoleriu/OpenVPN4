@@ -16,6 +16,17 @@
             "pcap-dumps/non-vpn.pcap",
             "pcap-dumps/mullvad-ovpn-bridge-mode.pcap"
         ]
+    },
+    {
+        "name": "VPN Detection Opcode with XOR optimization",
+        "algorithm":"opcode",
+        "params":{
+            "xor_opcodes":true
+        },
+        "files":[
+            "pcap-dumps/non-vpn.pcap",
+            "pcap-dumps/mullvad-ovpn-bridge-mode.pcap"
+        ]   
     }
     ],
 
