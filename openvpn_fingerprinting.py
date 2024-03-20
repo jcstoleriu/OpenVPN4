@@ -3,65 +3,20 @@ from scapy.layers.inet import UDP, IP, TCP
 # import cryptography
 import opcode_algorithm
 import ack_algorithm
+from utils import group_conversations
 import sys, tqdm
 
-def get_key(packet):
-    key = None
-    if IP in packet:
-        packet_ip = packet[IP]
-
-        port_src = 0
-        port_dst = 0
-        if UDP in packet:
-            port_src = packet[UDP].sport
-            port_dst = packet[UDP].dport
-        if TCP in packet:
-            port_src = packet[TCP].sport
-            port_dst = packet[TCP].dport
-
-        key = [(packet_ip.src, port_src), (packet_ip.dst, port_dst)]
-        key.sort(key=lambda k : k[0] + str(k[1]))
-        key = tuple(key)
-
-    return key
-
-def group_conversations(packets):
-    conversations = {}
-    ids = {}
-    for i, packet in enumerate(packets):
-        key = get_key(packet)
-        if key is None:
-            continue
-        if not key in conversations:
-            conversations[key] = []
-            ids[key] = i
-        conversations[key].append(packet)
-    
-    conversations_with_id = {ids[key]:v for key, v in conversations.items()}
-    return conversations, conversations_with_id
-
-def find_opcodes(packets):
-    opcodes = []
-    for packet in packets:
-        if UDP in packet:
-            # application data packets
-            packet_udp:UDP = packet[UDP]
-            payload = bytes(packet_udp.payload)
-
-            opcode = (payload[0] & 0b11111000) >> 3
-            opcodes.append(opcode)
-    return opcodes
 
 def flag_openvpn_in_capture(filename):
     packets = rdpcap(filename)
     conversations, conversations_with_id = group_conversations(packets)
+    results_opcode = opcode_algorithm.fingerprint_packets(filename, conversations=conversations)
+    results_ack = ack_algorithm.fingerprint_packets(filename, conversations=conversations)
 
     results = {}
     for key, packets_in_conversation in conversations.items():
-        opcodes = find_opcodes(packets_in_conversation)
-        opcode_result = opcode_algorithm.opcode_fingerprinting(opcodes)
-        ack_result = ack_algorithm.ack_fingerprinting(packets_in_conversation)
-        results[key] = (opcode_result, ack_result)
+        results[key] = (results_opcode[key], results_ack[key])
+
     return results, conversations
 
 def main(argv):

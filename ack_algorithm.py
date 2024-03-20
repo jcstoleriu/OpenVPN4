@@ -5,7 +5,20 @@ import matplotlib.pyplot as plt
 import cryptography
 from scapy.packet import Raw
 from openvpn_header import OpenVPN
+from utils import group_conversations
 
+def fingerprint_packets(file, conversations=None, params={}):
+    if conversations is None:
+        packets = scapy.rdpcap(file)
+        conversations, conversations_with_id = group_conversations(packets)
+
+    results = {}
+    for key, packets_in_conversation in conversations.items():
+        result = ack_fingerprinting(packets_in_conversation, params=params)
+
+        results[key] = result
+
+    return results
 
 def similar_to_ack_candidate(packet, ack_candidate):
     if scapy.UDP not in packet or ack_candidate is None:
@@ -17,7 +30,7 @@ def similar_to_ack_candidate(packet, ack_candidate):
     # Check if packet is within a +- 4 * 4 byte range of the ack candidate
     return ack_candiate_size - 16 <= packet_size <= ack_candiate_size + 16
 
-def ack_fingerprinting(packets):
+def ack_fingerprinting(packets, params={}):
     ack_candidate = None
     i = 0
     for packet in packets:
