@@ -23,13 +23,16 @@ def find_opcodes(packets):
     opcodes = []
     for packet in packets:
         payload = None
-        if UDP in packet:
-            # application data packets
-            packet_udp:UDP = packet[UDP]
-            payload = bytes(packet_udp.payload)
-        if TCP in packet:
-            packet_tcp:TCP = packet[TCP]
-            payload = bytes(packet_tcp.payload)
+        try:
+            if UDP in packet:
+                # application data packets
+                packet_udp:UDP = packet[UDP]
+                payload = bytes(packet_udp.payload)
+            if TCP in packet:
+                packet_tcp:TCP = packet[TCP]
+                payload = bytes(packet_tcp.payload)
+        except Exception:
+            continue
 
         if payload is None or len(payload) < 1:
             continue
