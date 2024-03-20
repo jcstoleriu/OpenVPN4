@@ -7,10 +7,11 @@ ALGORITHMS = {
     "ack": ack_algorithm.fingerprint_packets
 }
 
-OUTPUT_CSV_HEADER = ["file", "algorithm", "ip1", "port1", "ip2", "port2", "result"]
+OUTPUT_CSV_HEADER = ["name", "file", "algorithm", "ip1", "port1", "ip2", "port2", "result"]
 
 
 DEFAULT_CONFIG_PATH = "config.json"
+DEFAULT_OUTPUT_FILE = "output.csv"
 PARAMS_KEY = "params"
 
 def main(argv):
@@ -18,7 +19,8 @@ def main(argv):
     with open(config_path, "r") as config_file:
         config = json.load(config_file)
 
-    with open(config["output"], 'w', newline='') as csvfile:
+    output_file = config.get("output", DEFAULT_OUTPUT_FILE)
+    with open(output_file, 'w', newline='') as csvfile:
         csv_writer = csv.writer(csvfile, delimiter=',',
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
         csv_writer.writerow(OUTPUT_CSV_HEADER)
@@ -28,8 +30,9 @@ def main(argv):
         # run all experiments
         for experiment in experiments:
             files = experiment["files"]
-
-            print(f"Running experiment {experiment['name']}")
+            
+            experiment_name = experiment["name"]
+            print(f"Running experiment {experiment_name}")
             for file in tqdm.tqdm(files):
                 algorithm_type = experiment["algorithm"]
                 algorithm = ALGORITHMS[algorithm_type]
@@ -40,8 +43,8 @@ def main(argv):
                 # print(results)
 
                 for key, result in results.items():
-                    csv_writer.writerow([file, algorithm_type, key[0][0], key[0][1], key[1][0], key[1][1], result])
-    
+                    csv_writer.writerow([experiment_name, file, algorithm_type, key[0][0], key[0][1], key[1][0], key[1][1], result])
+    print(f"output written to {output_file}")
 
 if __name__ == "__main__":
     main(sys.argv)

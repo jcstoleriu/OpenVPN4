@@ -46,7 +46,7 @@ def opcode_fingerprinting(opcodes, params=None):
     CR=opcodes[0]
     SR=opcodes[1]
 
-    if not CR ^ SR in [1^2, 7^8] and XOR_OPCODES_KEY in params:
+    if XOR_OPCODES_KEY in params and params[XOR_OPCODES_KEY] and not CR ^ SR in [1^2, 7^8]:
         return False
 
     OCSet=set([SR,CR])
