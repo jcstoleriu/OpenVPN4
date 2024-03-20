@@ -3,7 +3,7 @@ from scapy.layers.inet import UDP, IP, TCP
 # import cryptography
 import opcode_algorithm
 import ack_algorithm
-from utils import group_conversations
+from utils import group_conversations, print_summary
 import sys, tqdm
 
 def flag_openvpn_in_capture(filename, params={}):
@@ -18,6 +18,7 @@ def flag_openvpn_in_capture(filename, params={}):
         results[key] = (results_opcode[key], results_ack[key])
 
     return results, conversations
+
 
 def main(argv):
     files = [
@@ -45,11 +46,7 @@ def main(argv):
             
             print(f"ACK flag result: {result[1]}")
         
-        print(f"\n############ Summary for file {file} ############")
-        print(f"Found {len(conversations)} conversations")
-        print(f"{len([v for v in items if v[1][0]])} flagged as VPN by the opcode algorithm")
-        print(f"{len([v for v in items if v[1][1]])} flagged as VPN by the ACK algorithm")
-        print(f"################################################\n")
+        print_summary(file, conversations, items)
 
 if __name__ == "__main__":
     main(sys.argv)
