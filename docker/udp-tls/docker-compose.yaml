@@ -11,7 +11,7 @@ services:
         FROM ubuntu
         RUN apt-get update
         RUN apt-get install -y tcpdump
-    command: sh -c "timeout 35 tcpdump -w /data/capture.pcap -i testnettcptls"
+    command: sh -c "timeout 35 tcpdump -w /data/capture.pcap -i testnetudptls"
     # command: tail -F anything
     volumes:
      - ./data:/data
@@ -32,11 +32,10 @@ services:
         RUN openvpn --genkey --secret /etc/openvpn/ta.key
         RUN echo "tls-auth /etc/openvpn/ta.key 0" >> /etc/openvpn/openvpn.conf
         RUN ovpn_getclient client > /client.ovpn
-        RUN echo "tls-auth /data/ta.key 1" >> /client.ovpn
     ports:
      - "1194:1194/udp"
     restart: no
-    command: sh -c "cp /client.ovpn /data && ovpn_run"
+    command: sh -c "cp /client.ovpn /data && cp /etc/openvpn/ta.key /data && cp /etc/openvpn/openvpn.conf /data/server.conf && ovpn_run"
     volumes:
      - ./data:/data
     devices:
@@ -74,7 +73,7 @@ networks:
   home:
     driver: bridge
     driver_opts:
-      com.docker.network.bridge.name: testnettcptls
+      com.docker.network.bridge.name: testnetudptls
     ipam:
       config:
         - subnet: 10.3.0.0/24
