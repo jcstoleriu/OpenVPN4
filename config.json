@@ -155,7 +155,6 @@
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_skype-chat_capture15.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_skype-chat_capture41.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_skype-chat_capture29.pcap",
-            "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_rsync_capture1.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/nonvpn_skype-chat_capture17.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/nonvpn_ssh_capture4.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_skype-chat_capture7.pcap",
@@ -200,7 +199,6 @@
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_skype-chat_capture42.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/nonvpn_skype-chat_capture25.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_rdp_capture2.pcap",
-            "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/nonvpn_rsync_capture1.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_skype-chat_capture53.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/nonvpn_skype-chat_capture6.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/nonvpn_ssh_capture3.pcap",
@@ -224,7 +222,6 @@
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/nonvpn_vimeo_capture1.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/nonvpn_skype-chat_capture18.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/nonvpn_skype-chat_capture43.pcap",
-            "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_scp_capture1.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_skype-chat_capture57.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_skype-chat_capture2.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/nonvpn_skype-chat_capture19.pcap",
@@ -319,7 +316,11 @@
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_rsync_capture3.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_sftp_capture1.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/nonvpn_sftp_newcapture1.pcap",
-            "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_scp_capture2.pcap"
+            "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_scp_capture2.pcap",
+            "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_rsync_capture1.pcap",
+            "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_scp_capture1.pcap",
+            "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/nonvpn_rsync_capture1.pcap"
+
         ]
     },
     "experiments":[
