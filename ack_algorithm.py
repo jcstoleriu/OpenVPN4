@@ -23,12 +23,16 @@ def fingerprint_packets(file, conversations=None, params={}, printer=lambda x:x)
 
     return results
 
-def similar_to_ack_candidate(packet, ack_candidate):
+MOD_4_IMPROVEMENT_KEY = "mod_4_improvement"
+def similar_to_ack_candidate(packet, ack_candidate, params={}):
     if not (UDP in packet or TCP in packet) or ack_candidate is None:
         return False
     
     ack_candiate_size = len(ack_candidate)
     packet_size = len(packet)
+
+    if MOD_4_IMPROVEMENT_KEY in params and params[MOD_4_IMPROVEMENT_KEY] and ack_candiate_size % 4 == packet_size % 4:
+        return False
 
     # Check if packet is within a +- 4 * 4 byte range of the ack candidate
     return ack_candiate_size - 16 <= packet_size <= ack_candiate_size + 16
@@ -86,7 +90,7 @@ def ack_fingerprinting(packets, params={}):
     # print(f"Found {len(bins)} bins")
 
     # For each bin count the number of packets that are similar to the ack candidate
-    histogram = [len(list(filter(lambda p: similar_to_ack_candidate(p, ack_candidate), bin))) for bin in bins]
+    histogram = [len(list(filter(lambda p: similar_to_ack_candidate(p, ack_candidate, params=params), bin))) for bin in bins]
 
     # plt.plot(histogram[:10])
     # plt.show()

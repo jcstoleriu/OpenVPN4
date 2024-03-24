@@ -336,21 +336,27 @@
         
     },
     {
-        "name": "VPN Detection ACK",
-        "algorithm":"ack"
-    },
-    {
         "name": "VPN Detection Opcode with XOR optimization",
         "algorithm":"opcode",
         "params":{
             "xor_opcodes":true
         }
+    },
+    {
+        "name": "VPN Detection ACK",
+        "algorithm":"ack"
+    },
+    {
+        "name": "VPN Detection ACK with MOD improvement",
+        "algorithm":"ack",
+        "params":{
+            "mod_4_improvement":true
+        }
     }
     ],
     "used_datasets":[
         "docker-pcaps",
-        "VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset",
-        "ISCXVPN2016-NonVPN-PCAPs-03"
+        "pcap-dumps"
     ],
 
     "output":"output.csv",
