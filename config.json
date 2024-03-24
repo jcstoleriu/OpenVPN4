@@ -368,5 +368,6 @@
     }
     ],
 
-    "output":"output.csv"
+    "output":"output.csv",
+    "max_file_size": 2000000000
 }
