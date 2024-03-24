@@ -1,5 +1,5 @@
 import json, ack_algorithm, opcode_algorithm, csv, sys, tqdm, logging, os
-from scapy.all import rdpcap
+from scapy.all import rdpcap, PcapReader
 from utils import group_conversations
 from openvpn_fingerprinting import print_summary
 
@@ -52,40 +52,43 @@ def main(argv:list):
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
         csv_writer.writerow(OUTPUT_CSV_HEADER)
 
+        used_datasets = config["used_datasets"]
+        dataset_files = []
+        for experiment_dataset_key in used_datasets:
+            if experiment_dataset_key in config_datasets:
+                dataset_files += config_datasets[experiment_dataset_key]
+            else:
+                logging.error(f"dataset {experiment_dataset_key} not found in config. Skipping it.")
         
         experiments = config["experiments"]
         # run all experiments
-        for i, experiment in enumerate(experiments):
-            experiment_dataset_keys = experiment["datasets"]
-            
-            experiment_name = experiment["name"]
-            algorithm_type = experiment["algorithm"]
-            algorithm = ALGORITHMS[algorithm_type]
-            logging.info(f"Running experiment '{experiment_name}' with algorithm {algorithm_type} ({i+1} of {len(experiments)} experiments)")
+        for j, file in enumerate(dataset_files):
+            if not os.path.exists(file):
+                logging.error(f"File {file} does not exist. Skipping it.")
+                continue
 
-            experiment_datasets = []
-            for experiment_dataset_key in experiment_dataset_keys:
-                if experiment_dataset_key in config_datasets:
-                    experiment_datasets += config_datasets[experiment_dataset_key]
-                else:
-                    logging.error(f"dataset {experiment_dataset_key} not found in config. Skipping it.")
+            filesize = os.path.getsize(file)
+            if filesize > max_file_size:
+                logging.error(f"Skipping file {file}, due to large filesize {filesize} (limit {max_file_size})")
+                continue
 
-            for j, file in enumerate(experiment_datasets):
-                if not os.path.exists(file):
-                    logging.error(f"File {file} does not exist. Skipping it.")
-                    continue
-                filesize = os.path.getsize(file)
-                if filesize > max_file_size:
-                    logging.error(f"Skipping file {file}, due to large filesize {filesize} (limit {max_file_size})")
-                    continue
-                logging.info(f"Fingerprinting file '{file}' ({j+1} of {len(experiment_datasets)} files)...")
+            logging.info(f"Fingerprinting file '{file}' ({j+1} of {len(dataset_files)} files)...")
+            if not dry_run:
+                packets = PcapReader(file)
+                conversations, _ = group_conversations(packets, progressbar=True)
+
+            for i, experiment in enumerate(experiments):
+                experiment_name = experiment["name"]
+                algorithm_type = experiment["algorithm"]
+                algorithm = ALGORITHMS[algorithm_type]
+                logging.info(f"Running experiment '{experiment_name}' with algorithm {algorithm_type} ({i+1} of {len(experiments)} experiments)")
                 
                 params = experiment.get(PARAMS_KEY, None)
 
                 if dry_run:
                     continue
 
-                results = algorithm(file, params=params, printer=lambda x : logging.info(x))
+                results = algorithm(file, conversations=conversations, params=params, printer=lambda x : logging.info(x))
 
                 # print(f"Results for experiment {experiment['name']}")
                 # print(results)
