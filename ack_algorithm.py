@@ -1,7 +1,7 @@
 import scapy.all as scapy
 from scapy.all import PcapReader
 from scapy.layers.tls.record import TLS
-from scapy.layers.inet import UDP, IP
+from scapy.layers.inet import UDP, IP, TCP
 import matplotlib.pyplot as plt
 import cryptography
 from scapy.packet import Raw
@@ -24,7 +24,7 @@ def fingerprint_packets(file, conversations=None, params={}, printer=lambda x:x)
     return results
 
 def similar_to_ack_candidate(packet, ack_candidate):
-    if scapy.UDP not in packet or ack_candidate is None:
+    if not (UDP in packet or TCP in packet) or ack_candidate is None:
         return False
     
     ack_candiate_size = len(ack_candidate)
@@ -37,10 +37,15 @@ def ack_fingerprinting(packets, params={}):
     ack_candidate = None
     i = 0
     for packet in packets:
-        if UDP not in packet:
-            continue
+        payload = None
+
+        if UDP in packet:
+            packet_udp:UDP = packet[UDP]
+            payload = bytes(packet_udp.payload.original)
+        if TCP in packet:
+            packet_tcp:TCP = packet[TCP]
+            payload = bytes(packet_tcp.payload.original)
         # Check if there is a TLS layer
-        packet_udp:UDP = packet[UDP]
 
         # packet_openvpn: OpenVPN = packet_udp.payload
 
@@ -51,19 +56,19 @@ def ack_fingerprinting(packets, params={}):
         #     except Exception:
         #         continue
 
-        # if not packet_openvpn.is_valid_packet() or len(packet_openvpn.payload) > 0:
-        #     continue
-        if not len(packet_udp.payload.original) in range(22, 55):
-            continue
-        
         if i < 2:
             i += 1
             continue
 
-        packet_udp:scapy.UDP = packet[scapy.UDP]
+        # if not packet_openvpn.is_valid_packet() or len(packet_openvpn.payload) > 0:
+        #     continue
+        if payload is None or not len(payload) in range(22, 55):
+            continue
+        
+
         # This is now our candidate for an ACK package
         ack_candidate = packet
-        # print(f"Found ack candidate: {ack_candidate[IP].id} {len(ack_candidate)}")
+        print(f"Found ack candidate: {ack_candidate[IP].id} {len(ack_candidate)}")
         break
 
     # no ack candidate found
