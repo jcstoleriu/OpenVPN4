@@ -326,32 +326,24 @@
     "experiments":[
         {
         "name": "VPN Detection Opcode",
-        "algorithm":"opcode",
-        "datasets":[
-                "VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset",
-                "ISCXVPN2016-NonVPN-PCAPs-03"
-        ]
+        "algorithm":"opcode"
         
     },
     {
         "name": "VPN Detection ACK",
-        "algorithm":"ack",
-        "datasets":[
-		"VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset",
-            	"ISCXVPN2016-NonVPN-PCAPs-03"
-        ]
+        "algorithm":"ack"
     },
     {
         "name": "VPN Detection Opcode with XOR optimization",
         "algorithm":"opcode",
         "params":{
             "xor_opcodes":true
-        },
-        "datasets":[
-            "VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset",
-            "ISCXVPN2016-NonVPN-PCAPs-03"
-        ]
+        }
     }
+    ],
+    "used_datasets":[
+        "VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset",
+        "ISCXVPN2016-NonVPN-PCAPs-03"
     ],
 
     "output":"output.csv",
