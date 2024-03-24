@@ -321,6 +321,12 @@
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_scp_capture1.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/nonvpn_rsync_capture1.pcap"
 
+        ],
+        "docker-pcaps": [
+            "./docker-pcaps/tcp-tls.pcap",
+            "./docker-pcaps/tcp.pcap",
+            "./docker-pcaps/udp.pcap",
+            "./docker-pcaps/udp-tls.pcap"
         ]
     },
     "experiments":[
@@ -342,6 +348,7 @@
     }
     ],
     "used_datasets":[
+        "docker-pcaps",
         "VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset",
         "ISCXVPN2016-NonVPN-PCAPs-03"
     ],
