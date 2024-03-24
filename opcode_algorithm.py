@@ -16,7 +16,7 @@ def fingerprint_packets(file, conversations=None, params={}, printer=lambda x : 
 
         results[key] = opcode_result
 
-    print_summary(file, conversations, results, printer=printer)
+    print_summary(file, conversations, [(k,(v, False)) for k,v in results.items()], printer=printer)
 
     return results
 
