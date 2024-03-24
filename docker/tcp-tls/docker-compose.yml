@@ -11,7 +11,7 @@ services:
         FROM ubuntu
         RUN apt-get update
         RUN apt-get install -y tcpdump
-    command: sh -c "timeout 35 tcpdump -w /data/capture.pcap -i testnetudptls"
+    command: sh -c "timeout 35 tcpdump -w /data/capture.pcap -i testnettcptls"
     # command: tail -F anything
     volumes:
      - ./data:/data
@@ -26,16 +26,14 @@ services:
         FROM kylemanna/openvpn
         RUN echo "Setting up openVPN server!"
         RUN touch /etc/openvpn/bro.txt
-        RUN ovpn_genconfig -u udp://10.3.0.222
+        RUN ovpn_genconfig -u tcp://10.3.0.222 -k "10 20"
         RUN printf "okay\nokay\n\nokay\okay" | ovpn_initpki nopass
         RUN easyrsa build-client-full client nopass
-        RUN openvpn --genkey --secret /etc/openvpn/ta.key
-        RUN echo "tls-auth /etc/openvpn/ta.key 0" >> /etc/openvpn/openvpn.conf
         RUN ovpn_getclient client > /client.ovpn
     ports:
-     - "1194:1194/udp"
+     - "1194:1194/tcp"
     restart: no
-    command: sh -c "cp /client.ovpn /data && cp /etc/openvpn/ta.key /data && cp /etc/openvpn/openvpn.conf /data/server.conf && ovpn_run"
+    command: sh -c "cp /client.ovpn /data && ovpn_run"
     volumes:
      - ./data:/data
     devices:
@@ -73,7 +71,7 @@ networks:
   home:
     driver: bridge
     driver_opts:
-      com.docker.network.bridge.name: testnetudptls
+      com.docker.network.bridge.name: testnettcptls
     ipam:
       config:
         - subnet: 10.3.0.0/24

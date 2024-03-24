@@ -11,7 +11,7 @@ services:
         FROM ubuntu
         RUN apt-get update
         RUN apt-get install -y tcpdump
-    command: sh -c "timeout 35 tcpdump -w /data/capture.pcap -i testnetudp"
+    command: sh -c "timeout 60 tcpdump -w /data/capture.pcap -i testnetudp"
     # command: tail -F anything
     volumes:
      - ./data:/data
@@ -19,21 +19,18 @@ services:
 
   # OpenVPN server, the client container connects to this.
   server:
+    container_name: server
     cap_add:
      - NET_ADMIN
     build:
       dockerfile_inline: |
         FROM kylemanna/openvpn
         RUN echo "Setting up openVPN server!"
-        RUN touch /etc/openvpn/bro.txt
-        RUN ovpn_genconfig -u udp://10.3.0.222
-        RUN printf "okay\nokay\n\nokay\okay" | ovpn_initpki nopass
-        RUN easyrsa build-client-full client nopass
-        RUN ovpn_getclient client > /client.ovpn
     ports:
      - "1194:1194/udp"
     restart: no
-    command: sh -c "cp /client.ovpn /data && ovpn_run"
+    command: sh -c "openvpn --genkey --secret /data/static.key && openvpn --config /data/server.conf"
+    # command: tail -F anything
     volumes:
      - ./data:/data
     devices:
