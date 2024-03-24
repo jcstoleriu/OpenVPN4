@@ -11,7 +11,7 @@ services:
         FROM ubuntu
         RUN apt-get update
         RUN apt-get install -y tcpdump
-    command: sh -c "timeout 35 tcpdump -w /data/capture.pcap -i testnettcp"
+    command: sh -c "timeout 35 tcpdump -w /data/capture.pcap -i testnettcptls"
     # command: tail -F anything
     volumes:
      - ./data:/data
@@ -71,7 +71,7 @@ networks:
   home:
     driver: bridge
     driver_opts:
-      com.docker.network.bridge.name: testnettcp
+      com.docker.network.bridge.name: testnettcptls
     ipam:
       config:
         - subnet: 10.3.0.0/24
