@@ -22,6 +22,8 @@ def flag_openvpn_in_capture(filename, params={}):
 
 def main(argv):
     files = [
+        # "docker-pcaps/udp.pcap",
+        "docker-pcaps/tcp.pcap",
         "pcap-dumps/mullvad-ovpn-bridge-mode.pcap",
         "pcap-dumps/synthesized-openvpn-server-dump.pcap",
         "pcap-dumps/non-vpn.pcap",
