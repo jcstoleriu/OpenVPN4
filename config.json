@@ -18,7 +18,18 @@
             "/datasets/ISCXVPN2016/PCAPs/NonVPN-PCAPs-01/facebook_audio1a.pcap",
             "/datasets/ISCXVPN2016/PCAPs/NonVPN-PCAPs-01/facebook_video1a.pcap",
             "/datasets/ISCXVPN2016/PCAPs/NonVPN-PCAPs-01/facebook_video2a.pcap",
-            "/datasets/ISCXVPN2016/PCAPs/NonVPN-PCAPs-01/email2b.pcap"
+            "/datasets/ISCXVPN2016/PCAPs/NonVPN-PCAPs-01/email2b.pcap",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-01/AIMchat2.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-01/AIMchat1.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-01/facebook_video2b.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-01/facebook_audio2b.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-01/facebookchat1.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-01/facebook_video1b.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-01/facebook_audio1b.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-01/facebook_audio3.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-01/facebookchat3.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-01/facebook_audio4.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-01/facebookchat2.pcapng"
         ],
         "ISCXVPN2016-VPN-PCAPs-01":[
             "/datasets/ISCXVPN2016/PCAPs/VPN-PCAPS-01/vpn_hangouts_chat1b.pcap",
@@ -63,7 +74,19 @@
             "/datasets/ISCXVPN2016/PCAPs/NonVPN-PCAPs-02/hangouts_audio2a.pcap",
             "/datasets/ISCXVPN2016/PCAPs/NonVPN-PCAPs-02/icq_chat_3a.pcap",
             "/datasets/ISCXVPN2016/PCAPs/NonVPN-PCAPs-02/hangout_chat_4b.pcap",
-            "/datasets/ISCXVPN2016/PCAPs/NonVPN-PCAPs-02/hangouts_chat_4a.pcap"
+            "/datasets/ISCXVPN2016/PCAPs/NonVPN-PCAPs-02/hangouts_chat_4a.pcap",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-02/hangouts_audio2b.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-02/gmailchat3.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-02/hangouts_video1b.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-02/gmailchat2.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-02/ICQchat1.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-02/hangouts_audio4.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-02/ICQchat2.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-02/gmailchat1.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-02/hangouts_video2b.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-02/hangouts_audio3.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-02/hangouts_audio1b.pcapng"
+
         ],
         "ISCXVPN2016-NonVPN-PCAPs-03":[
             "/datasets/ISCXVPN2016/PCAPs/NonVPN-PCAPs-03/scpDown5.pcap",
@@ -109,7 +132,22 @@
             "/datasets/ISCXVPN2016/PCAPs/NonVPN-PCAPs-03/vimeo3.pcap",
             "/datasets/ISCXVPN2016/PCAPs/NonVPN-PCAPs-03/youtube5.pcap",
             "/datasets/ISCXVPN2016/PCAPs/NonVPN-PCAPs-03/scpUp2.pcap",
-            "/datasets/ISCXVPN2016/PCAPs/NonVPN-PCAPs-03/sftpDown2.pcap"
+            "/datasets/ISCXVPN2016/PCAPs/NonVPN-PCAPs-03/sftpDown2.pcap",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-03/voipbuster1b.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-03/skype_file7.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-03/skype_audio1b.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-03/skype_video2b.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-03/voipbuster2b.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-03/skype_file6.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-03/sftp1.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-03/skype_file4.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-03/skype_file5.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-03/skype_video1b.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-03/skype_audio4.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-03/voipbuster3b.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-03/skype_file8.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-03/skype_audio2b.pcapng",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-03/skype_audio3.pcapng"
         ],
         "VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset": [
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/vpn_skype-chat_capture34.pcap",
@@ -177,7 +215,6 @@
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/nonvpn_rdp_capture_5.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/nonvpn_skype-chat_capture21.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/vpn_ssh_capture4.pcap",
-            "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/vpn_rsync_capture3.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/nonvpn_skype-chat_capture13.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/nonvpn_skype-chat_capture20.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/nonvpn_voip_capture2.pcap",
@@ -190,7 +227,6 @@
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/vpn_scp_capture1.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/vpn_skype-chat_capture57.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/vpn_skype-chat_capture2.pcap",
-            "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/vpn_scp_capture2.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/nonvpn_skype-chat_capture19.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/nonvpn_skype-chat_capture48.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/nonvpn_skype-chat_capture44.pcap",
@@ -250,7 +286,6 @@
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/nonvpn_skype-chat_capture5.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/vpn_skype-chat_capture5.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/vpn_voip_capture2.pcap",
-            "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/vpn_sftp_capture1.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/nonvpn_skype-chat_capture35.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/vpn_skype-chat_capture23.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/vpn_skype-chat_capture43.pcap",
@@ -258,7 +293,6 @@
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/vpn_skype-chat_capture49.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/nonvpn_netflix_capture1.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/nonvpn_skype-chat_capture14.pcap",
-            "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/nonvpn_sftp_newcapture1.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/vpn_skype-chat_capture22.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/vpn_skype-chat_capture36.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/nonvpn_rsync_newcapture1.pcap",
@@ -280,7 +314,12 @@
         "long-captures":[
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/nonvpn_scp_long_capture1.pcap",
             "/datasets/ISCXVPN2016/PCAPs/NonVPN-PCAPs-02/ftps_down_1a.pcap",
-            "/datasets/ISCXVPN2016/PCAPs/NonVPN-PCAPs-02/ftps_down_1b.pcap"
+            "/datasets/ISCXVPN2016/PCAPs/NonVPN-PCAPs-02/ftps_down_1b.pcap",
+            "./ISCXVPN2016/PCAPs/NonVPN-PCAPs-03/scp1.pcapng",
+            "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/vpn_rsync_capture3.pcap",
+            "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/vpn_sftp_capture1.pcap",
+            "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/nonvpn_sftp_newcapture1.pcap",
+            "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/VNAT_release_1/vpn_scp_capture2.pcap"
         ]
     },
     "experiments":[
@@ -292,8 +331,9 @@
             "ISCXVPN2016-NonVPN-PCAPs-01",
             "ISCXVPN2016-VPN-PCAPs-01",
             "ISCXVPN2016-NonVPN-PCAPs-02",
-            "ISCXVPN2016-VPN-PCAPs-02"
-
+            "ISCXVPN2016-VPN-PCAPs-02",
+            "ISCXVPN2016-NonVPN-PCAPs-03",
+            "VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset"
         ]
         
     },
@@ -305,8 +345,9 @@
             "ISCXVPN2016-NonVPN-PCAPs-01",
             "ISCXVPN2016-VPN-PCAPs-01",
             "ISCXVPN2016-NonVPN-PCAPs-02",
-            "ISCXVPN2016-VPN-PCAPs-02"
-
+            "ISCXVPN2016-VPN-PCAPs-02",
+            "ISCXVPN2016-NonVPN-PCAPs-03",
+            "VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset"
         ]
     },
     {
@@ -320,7 +361,9 @@
             "ISCXVPN2016-NonVPN-PCAPs-01",
             "ISCXVPN2016-VPN-PCAPs-01",
             "ISCXVPN2016-NonVPN-PCAPs-02",
-            "ISCXVPN2016-VPN-PCAPs-02"
+            "ISCXVPN2016-VPN-PCAPs-02",
+            "ISCXVPN2016-NonVPN-PCAPs-03",
+            "VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset"
         ]
     }
     ],
