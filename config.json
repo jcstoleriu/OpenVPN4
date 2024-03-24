@@ -327,13 +327,8 @@
         "name": "VPN Detection Opcode",
         "algorithm":"opcode",
         "datasets":[
-            "pcap-dumps",
-            "ISCXVPN2016-NonVPN-PCAPs-01",
-            "ISCXVPN2016-VPN-PCAPs-01",
-            "ISCXVPN2016-NonVPN-PCAPs-02",
-            "ISCXVPN2016-VPN-PCAPs-02",
-            "ISCXVPN2016-NonVPN-PCAPs-03",
-            "VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset"
+                "VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset",
+                "ISCXVPN2016-NonVPN-PCAPs-03"
         ]
         
     },
@@ -341,13 +336,8 @@
         "name": "VPN Detection ACK",
         "algorithm":"ack",
         "datasets":[
-            "pcap-dumps",
-            "ISCXVPN2016-NonVPN-PCAPs-01",
-            "ISCXVPN2016-VPN-PCAPs-01",
-            "ISCXVPN2016-NonVPN-PCAPs-02",
-            "ISCXVPN2016-VPN-PCAPs-02",
-            "ISCXVPN2016-NonVPN-PCAPs-03",
-            "VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset"
+		"VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset",
+            	"ISCXVPN2016-NonVPN-PCAPs-03"
         ]
     },
     {
@@ -357,13 +347,8 @@
             "xor_opcodes":true
         },
         "datasets":[
-            "pcap-dumps",
-            "ISCXVPN2016-NonVPN-PCAPs-01",
-            "ISCXVPN2016-VPN-PCAPs-01",
-            "ISCXVPN2016-NonVPN-PCAPs-02",
-            "ISCXVPN2016-VPN-PCAPs-02",
-            "ISCXVPN2016-NonVPN-PCAPs-03",
-            "VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset"
+            "VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset",
+            "ISCXVPN2016-NonVPN-PCAPs-03"
         ]
     }
     ],
