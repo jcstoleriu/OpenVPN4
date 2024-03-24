@@ -68,7 +68,7 @@ def ack_fingerprinting(packets, params={}):
 
         # This is now our candidate for an ACK package
         ack_candidate = packet
-        print(f"Found ack candidate: {ack_candidate[IP].id} {len(ack_candidate)}")
+        # print(f"Found ack candidate: {ack_candidate[IP].id} {len(ack_candidate)}")
         break
 
     # no ack candidate found
