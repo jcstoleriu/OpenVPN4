@@ -50,15 +50,15 @@ def main(argv:list):
     used_datasets = config["used_datasets"]
     for dataset_key in used_datasets:
         output_file_basename = os.path.join(output_folder, dataset_key)
-        if len(logging.getLogger().handlers) > 2:
-            logging.getLogger().handlers.pop(2)
-        logging.getLogger().addHandler(logging.FileHandler(f"{output_file_basename}.log", mode='w'))
-
         output_file = output_file_basename + ".csv"
         if os.path.exists(output_file):
             logging.info(f"Output file {output_file} already exists. Skipping it.")
             continue
         output_file = output_file + TEMP_FILE_EXTENSION
+
+        if len(logging.getLogger().handlers) > 2:
+            logging.getLogger().handlers.pop(2)
+        logging.getLogger().addHandler(logging.FileHandler(f"{output_file_basename}.log", mode='w'))
 
         if not dataset_key in config_datasets:
             logging.error(f"dataset {dataset_key} not found in config. Skipping it.")
@@ -106,9 +106,10 @@ def main(argv:list):
 
                     for key, result in results.items():
                         csv_writer.writerow([experiment_name, file, algorithm_type, key[0][0], key[0][1], key[1][0], key[1][1], result])
-        output_file_final = output_file.replace(TEMP_FILE_EXTENSION, "")
-        os.rename(output_file, output_file_final)
-        logging.info(f"output written to {output_file_final}")
+        if os.path.exists(output_file):
+            output_file_final = output_file.replace(TEMP_FILE_EXTENSION, "")
+            os.rename(output_file, output_file_final)
+            logging.info(f"output written to {output_file_final}")
 
 if __name__ == "__main__":
     main(sys.argv)
