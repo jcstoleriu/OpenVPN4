@@ -359,6 +359,6 @@
         "pcap-dumps"
     ],
 
-    "output":"output.csv",
+    "output_folder":"experiments",
     "max_file_size": 2000000000
 }
