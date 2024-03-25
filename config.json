@@ -149,7 +149,7 @@
             "/datasets/ISCXVPN2016/PCAPs/NonVPN-PCAPs-03/skype_audio2b.pcapng",
             "/datasets/ISCXVPN2016/PCAPs/NonVPN-PCAPs-03/skype_audio3.pcapng"
         ],
-        "VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset": [
+        "VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset_part1":[
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_skype-chat_capture34.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/nonvpn_skype-chat_capture33.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_skype-chat_capture15.pcap",
@@ -179,7 +179,9 @@
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/nonvpn_voip_capture1.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/nonvpn_skype-chat_capture45.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_skype-chat_capture6.pcap",
-            "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_sftp_capture3.pcap",
+            "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_sftp_capture3.pcap"
+        ],
+        "VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset_part2":[
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/nonvpn_skype-chat_capture7.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_skype-chat_capture19.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_skype-chat_capture55.pcap",
@@ -209,7 +211,9 @@
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/nonvpn_sftp_capture1.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_skype-chat_capture44.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/nonvpn_skype-chat_capture32.pcap",
-            "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/nonvpn_skype-chat_capture24.pcap",
+            "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/nonvpn_skype-chat_capture24.pcap"
+        ],
+        "VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset_part3":[
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/nonvpn_rdp_capture_5.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/nonvpn_skype-chat_capture21.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_ssh_capture4.pcap",
@@ -239,7 +243,9 @@
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/nonvpn_skype-chat_capture1.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/nonvpn_skype-chat_capture16.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/nonvpn_skype-chat_capture31.pcap",
-            "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_skype-chat_capture32.pcap",
+            "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_skype-chat_capture32.pcap"
+        ],
+        "VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset_part4":[
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_voip_capture1.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_skype-chat_capture11.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_skype-chat_capture20.pcap",
@@ -269,7 +275,9 @@
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/nonvpn_rdp_capture2.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_skype-chat_capture46.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/nonvpn_skype-chat_capture26.pcap",
-            "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_voip_capture3.pcap",
+            "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_voip_capture3.pcap"
+        ],
+        "VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset_part5":[
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_skype-chat_capture21.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_skype-chat_capture12.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/nonvpn_sftp_capture2.pcap",
@@ -299,7 +307,9 @@
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_skype-chat_capture25.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_skype-chat_capture30.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_ssh_capture2.pcap",
-            "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_skype-chat_capture27.pcap",
+            "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_skype-chat_capture27.pcap"
+        ],
+        "VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset_part6": [
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_skype-chat_capture16.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/vpn_skype-chat_capture51.pcap",
             "/datasets/VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset/nonvpn_skype-chat_capture42.pcap",
@@ -356,7 +366,18 @@
     ],
     "used_datasets":[
         "docker-pcaps",
-        "pcap-dumps"
+        "pcap-dumps",
+        "ISCXVPN2016-NonVPN-PCAPs-01",
+        "ISCXVPN2016-VPN-PCAPs-01",
+        "ISCXVPN2016-VPN-PCAPs-02",
+        "ISCXVPN2016-NonVPN-PCAPs-02",
+        "ISCXVPN2016-NonVPN-PCAPs-03",
+        "VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset_part1",
+        "VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset_part2",
+        "VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset_part3",
+        "VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset_part4",
+        "VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset_part5",
+        "VNAT_VPN-NonVPN_Network_Application_Traffic_Dataset_part6"
     ],
 
     "output_folder":"experiments",
