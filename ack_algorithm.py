@@ -19,12 +19,13 @@ def fingerprint_packets(file, conversations=None, params={}, printer=lambda x:x)
 
         results[key] = result
 
-    print_summary(file, conversations, [(k,(False, v)) for k,v in results.items()], printer=printer)
+    print_summary(file, conversations, [(k,tuple([v])) for k,v in results.items()], printer=printer, algorithm_labels=["ACK"])
 
     return results
 
 MOD_4_IMPROVEMENT_KEY = "mod_4_improvement"
-def similar_to_ack_candidate(packet, ack_candidate, params={}):
+def similar_to_ack_candidate(packet, ack_candidate, params=None):
+    if params is None: params = {}
     if not (UDP in packet or TCP in packet) or ack_candidate is None:
         return False
     
