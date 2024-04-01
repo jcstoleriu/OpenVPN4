@@ -26,7 +26,13 @@ def drops_connection_immediately(server_ip: str, server_port: int, payload: byte
         data = s.recv(1024)
         if not data:
             return True
+        else:
+            # print(f"Received data: {data}")
+            return False
     except socket.timeout:
+        return False
+    except Exception as e:
+        print(f"Error: {e}")
         return False
     
 def responds_with_rst(server_ip: str, server_port: int, payload: bytes):
@@ -56,6 +62,15 @@ def fingerprint(server_ip: str, server_port: int):
     dropped_3 = drops_connection_immediately(server_ip, server_port, probe_3)
     connection_reset = responds_with_rst(server_ip, server_port, probe_4)
 
+    print(f"Base Probe 1 (immediately dropped): \t\t{dropped_1}")
+    print(f"Base Probe 2 (not immediately dropped): \t{not dropped_2}")
+    print(f"Length Validaiton (immediately dropped): \t{dropped_3}")
+    print(f"RST Threshold (respopnded with RST): \t\t{connection_reset}")
+
     return (dropped_1 and not dropped_2) and dropped_3 and connection_reset
 
-print(fingerprint("10.3.0.222", 1194))
+print(f"OpenVPN Server (docker): {fingerprint('10.3.0.222', 1194)}")
+print("#" * 50)
+print(f"Local http server: {fingerprint('192.168.178.72', 8006)}")
+print("#" * 50)
+print(f"Local ssh server: {fingerprint('192.168.178.72', 22)}")
