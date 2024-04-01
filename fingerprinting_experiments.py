@@ -105,6 +105,8 @@ def main(argv:list):
                     # print(results)
 
                     for key, result in results.items():
+                        if result:
+                            logging.info(f"Conversation between {key[0]} and {key[1]} was flagged as OpenVPN by '{algorithm_type}' algorithm.")
                         csv_writer.writerow([experiment_name, file, algorithm_type, key[0][0], key[0][1], key[1][0], key[1][1], result])
         if os.path.exists(output_file):
             output_file_final = output_file.replace(TEMP_FILE_EXTENSION, "")
