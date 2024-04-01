@@ -23,6 +23,7 @@ def fingerprint_packets(file, conversations=None, params={}, printer=lambda x : 
 def find_opcodes(packets):
     opcodes = []
     for packet in packets:
+        payload_location = 0
         payload = None
         try:
             if UDP in packet:
@@ -30,6 +31,7 @@ def find_opcodes(packets):
                 packet_udp:UDP = packet[UDP]
                 payload = bytes(packet_udp.payload)
             if TCP in packet:
+                payload_location = 2
                 packet_tcp:TCP = packet[TCP]
                 payload = bytes(packet_tcp.payload)
         except Exception as e:
@@ -39,7 +41,7 @@ def find_opcodes(packets):
         if payload is None or len(payload) < 1:
             continue
 
-        opcode = (payload[0] & 0b11111000) >> 3
+        opcode = (payload[payload_location] & 0b11111000) >> 3
         opcodes.append(opcode)
     return opcodes
 
