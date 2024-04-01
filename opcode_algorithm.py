@@ -38,7 +38,7 @@ def find_opcodes(packets):
             logging.error(f"Could not read package: {e}")
             continue
 
-        if payload is None or len(payload) < 1:
+        if payload is None or len(payload) < payload_location + 1:
             continue
 
         opcode = (payload[payload_location] & 0b11111000) >> 3
