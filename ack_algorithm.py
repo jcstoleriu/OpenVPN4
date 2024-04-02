@@ -1,11 +1,5 @@
-import scapy.all as scapy
 from scapy.all import PcapReader
-from scapy.layers.tls.record import TLS
-from scapy.layers.inet import UDP, IP, TCP
-import matplotlib.pyplot as plt
-import cryptography
-from scapy.packet import Raw
-from openvpn_header import OpenVPN
+from scapy.layers.inet import UDP, TCP
 from utils import group_conversations, print_summary
 
 def fingerprint_packets(file, conversations=None, params={}, printer=lambda x:x):
