@@ -1,11 +1,5 @@
 {
     "datasets": {
-        "pcap-dumps": [
-            "pcap-dumps/non-vpn.pcap",
-            "pcap-dumps/mullvad-ovpn-bridge-mode.pcap",
-            "pcap-dumps/mullvad-ovpn-tcp.pcap",
-            "pcap-dumps/synthesized-openvpn-server-dump.pcap"
-        ],
         "ISCXVPN2016-NonVPN-PCAPs-01": [
             "/datasets/ISCXVPN2016/PCAPs/NonVPN-PCAPs-01/email2a.pcap",
             "/datasets/ISCXVPN2016/PCAPs/NonVPN-PCAPs-01/facebook_chat_4a.pcap",
@@ -366,7 +360,6 @@
     ],
     "used_datasets":[
         "docker-pcaps",
-        "pcap-dumps",
         "ISCXVPN2016-NonVPN-PCAPs-01",
         "ISCXVPN2016-VPN-PCAPs-01",
         "ISCXVPN2016-VPN-PCAPs-02",

@@ -33,7 +33,6 @@ def main():
         "docker-pcaps/tcp.pcap",
         "docker-pcaps/udp-tls.pcap",
         "docker-pcaps/tcp-tls.pcap",
-        "pcap-dumps/synthesized-openvpn-server-dump.pcap",
     ]
 
     parser = argparse.ArgumentParser(description="Flag OpenVPN connections in a pcap file")

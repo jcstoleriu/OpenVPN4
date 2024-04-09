@@ -20,7 +20,6 @@ The project is structured as follows:
 
 - [docker](./docker/): Docker environments to generate datasets with OpenVPN configurations (udp, tcp, udp-tls, tcp-tls)
 - [docker-pcaps](./docker-pcaps/): Captured pcap files from the various Docker environments
-- [pcap-dumps](./pcap-dumps/): Captured traffic from live OpenVPN connections
 - [src](./src/): source code for the passive fingerprinting methods
 
 ## Running Experiments
