@@ -69,8 +69,12 @@ def fingerprint(server_ip: str, server_port: int):
 
     return (dropped_1 and not dropped_2) and dropped_3 and connection_reset
 
-print(f"OpenVPN Server (docker): {fingerprint('10.3.0.222', 1194)}")
-print("#" * 50)
-print(f"Local http server: {fingerprint('192.168.178.72', 8006)}")
-print("#" * 50)
-print(f"Local ssh server: {fingerprint('192.168.178.72', 22)}")
+def main():
+    print(f"OpenVPN Server (docker): {fingerprint('10.3.0.222', 1194)}")
+    print("#" * 50)
+    print(f"Local http server: {fingerprint('192.168.178.72', 8006)}")
+    print("#" * 50)
+    print(f"Local ssh server: {fingerprint('192.168.178.72', 22)}")
+
+if __name__ == "__main__":
+    main()
