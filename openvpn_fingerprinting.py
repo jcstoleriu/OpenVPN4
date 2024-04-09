@@ -1,10 +1,7 @@
 from scapy.all import PcapReader
-from scapy.layers.inet import UDP, IP, TCP
-# import cryptography
-import opcode_algorithm
-import ack_algorithm
-from utils import group_conversations, print_summary
-import sys, tqdm, argparse
+from src import opcode_algorithm, ack_algorithm
+from src.utils import group_conversations, print_summary
+import argparse
 import active_fingerprinting
 
 def flag_openvpn_in_capture(filename, params={}, use_active_fingerprinting=False):
@@ -15,7 +12,7 @@ def flag_openvpn_in_capture(filename, params={}, use_active_fingerprinting=False
     results_ack = ack_algorithm.fingerprint_packets(filename, conversations=conversations, params=params)
 
     results = {}
-    for key, packets_in_conversation in conversations.items():
+    for key, _ in conversations.items():
         opcode_result = results_opcode[key]
         ack_result = results_ack[key]
         
@@ -32,15 +29,17 @@ def flag_openvpn_in_capture(filename, params={}, use_active_fingerprinting=False
 
 def main():
     files = [
-        # "docker-pcaps/udp.pcap",
+        "docker-pcaps/udp.pcap",
         "docker-pcaps/tcp.pcap",
+        "docker-pcaps/udp-tls.pcap",
+        "docker-pcaps/tcp-tls.pcap",
         "pcap-dumps/mullvad-ovpn-bridge-mode.pcap",
         "pcap-dumps/synthesized-openvpn-server-dump.pcap",
         "pcap-dumps/non-vpn.pcap",
     ]
 
     parser = argparse.ArgumentParser(description="Flag OpenVPN connections in a pcap file")
-    parser.add_argument("files", nargs="+", default=files, help="The pcap files to analyze")
+    parser.add_argument("files", nargs="*", default=files, help="The pcap files to analyze")
     parser.add_argument("-o", action="store_true", help="Use XOR Optimization in the opcode algorithm")
     parser.add_argument("--active-fingerprinting", action="store_true", help="Use active fingerprinting (default: False)")
 

@@ -1,7 +1,6 @@
-import json, ack_algorithm, opcode_algorithm, csv, sys, tqdm, logging, os
-from scapy.all import rdpcap, PcapReader
-from utils import group_conversations
-from openvpn_fingerprinting import print_summary
+import json, csv, sys, logging, os
+from src import opcode_algorithm, ack_algorithm, utils
+from scapy.all import PcapReader
 
 ALGORITHMS = {
     "opcode": opcode_algorithm.fingerprint_packets,
@@ -86,7 +85,7 @@ def main(argv:list):
                 logging.info(f"Fingerprinting file '{file}' ({j+1} of {len(config_datasets[dataset_key])} files)...")
                 if not dry_run:
                     packets = PcapReader(file)
-                    conversations = group_conversations(packets, progressbar=True)
+                    conversations = utils.group_conversations(packets, progressbar=True)
 
                 for i, experiment in enumerate(experiments):
                     experiment_name = experiment["name"]
@@ -100,9 +99,6 @@ def main(argv:list):
                         continue
 
                     results = algorithm(file, conversations=conversations, params=params, printer=lambda x : logging.info(x))
-
-                    # print(f"Results for experiment {experiment['name']}")
-                    # print(results)
 
                     for key, result in results.items():
                         if result:

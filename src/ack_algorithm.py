@@ -1,6 +1,6 @@
 from scapy.all import PcapReader
 from scapy.layers.inet import UDP, TCP
-from utils import group_conversations, print_summary
+from src.utils import group_conversations, print_summary
 
 def fingerprint_packets(file, conversations=None, params={}, printer=lambda x:x):
     if conversations is None:
@@ -44,30 +44,17 @@ def ack_fingerprinting(packets, params={}):
         if TCP in packet:
             packet_tcp:TCP = packet[TCP]
             payload = bytes(packet_tcp.payload.original)
-        # Check if there is a TLS layer
-
-        # packet_openvpn: OpenVPN = packet_udp.payload
-
-        # if not OpenVPN in packet_openvpn:
-        #     # TODO: fix this. For packets that are not openvpn some errors occur. currently we just ignore packets like this
-        #     try:
-        #         packet_openvpn = OpenVPN(packet_openvpn.original)
-        #     except Exception:
-        #         continue
 
         if i < 2:
             i += 1
             continue
 
-        # if not packet_openvpn.is_valid_packet() or len(packet_openvpn.payload) > 0:
-        #     continue
         if payload is None or not len(payload) in range(22, 55):
             continue
         
 
         # This is now our candidate for an ACK package
         ack_candidate = packet
-        # print(f"Found ack candidate: {ack_candidate[IP].id} {len(ack_candidate)}")
         break
 
     # no ack candidate found
@@ -82,13 +69,8 @@ def ack_fingerprinting(packets, params={}):
         else:
             bins.append(packets[i:i+10])
 
-    # print(f"Found {len(bins)} bins")
-
     # For each bin count the number of packets that are similar to the ack candidate
     histogram = [len(list(filter(lambda p: similar_to_ack_candidate(p, ack_candidate, params=params), bin))) for bin in bins]
-
-    # plt.plot(histogram[:10])
-    # plt.show()
 
     if len(histogram) < 5:
         return False
@@ -103,15 +85,5 @@ def ack_fingerprinting(packets, params={}):
     for i in range(5, len(histogram)):
         if histogram[i] > 1:
             return False
-        
-
-    # plt.plot(histogram[:10])
-    # plt.show()
 
     return True
-
-    
-
-
-
-
