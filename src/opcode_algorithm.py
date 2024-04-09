@@ -1,7 +1,7 @@
 from scapy.layers.inet import UDP, TCP
 import logging
 from scapy.all import PcapReader
-from utils import group_conversations, print_summary
+from src.utils import group_conversations, print_summary
 
 # fingerprint packets in pcap files
 def fingerprint_packets(file, conversations=None, params={}, printer=lambda x : x):

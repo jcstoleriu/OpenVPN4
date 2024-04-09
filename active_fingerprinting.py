@@ -1,6 +1,7 @@
 import struct
 import random 
 import socket
+import argparse
 
 def create_openvpn_payload(pkt_len, opcode, key_id, session_id, hmac):
     """
@@ -70,11 +71,14 @@ def fingerprint(server_ip: str, server_port: int):
     return (dropped_1 and not dropped_2) and dropped_3 and connection_reset
 
 def main():
-    print(f"OpenVPN Server (docker): {fingerprint('10.3.0.222', 1194)}")
-    print("#" * 50)
-    print(f"Local http server: {fingerprint('192.168.178.72', 8006)}")
-    print("#" * 50)
-    print(f"Local ssh server: {fingerprint('192.168.178.72', 22)}")
+    parser = argparse.ArgumentParser(description="Active fingerprinting of a OpenVPN server")
+    parser.add_argument("server_ip", help="The IP of the OpenVPN server")
+    parser.add_argument("server_port", type=int, help="The port of the OpenVPN server")
+
+    args = parser.parse_args()
+
+    fingerprint(args.server_ip, args.server_port)
+    
 
 if __name__ == "__main__":
     main()
