@@ -9,7 +9,7 @@ import sys, tqdm
 def flag_openvpn_in_capture(filename, params={}):
     packets = PcapReader(filename)
     print(f"Reading file {filename}...")
-    conversations, conversations_with_id = group_conversations(packets, progressbar=True)
+    conversations = group_conversations(packets, progressbar=True)
     results_opcode = opcode_algorithm.fingerprint_packets(filename, conversations=conversations, params=params)
     results_ack = ack_algorithm.fingerprint_packets(filename, conversations=conversations, params=params)
 
@@ -44,9 +44,10 @@ def main(argv):
         items = list(results.items())
         items.sort(key=lambda k : sum([int(v) for v in k[1]]))
         for (ip1, ip2), result in items:
-            print(f"Flagged: {result[0]}\tIn conversation between {ip1} and {ip2}")
+            print(f"\nconversation between {ip1} and {ip2}")
             
-            print(f"ACK flag result: {result[1]}")
+            print(f"Opcode algorithm flag result: {result[0]}")
+            print(f"ACK algorithm flag result: {result[1]}")
         
         print_summary(file, conversations, items)
 

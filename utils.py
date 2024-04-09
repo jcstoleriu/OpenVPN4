@@ -46,5 +46,4 @@ def group_conversations(packets, progressbar=False):
             ids[key] = i
         conversations[key].append(packet)
     
-    conversations_with_id = {ids[key]:v for key, v in conversations.items()}
-    return conversations, conversations_with_id
+    return conversations

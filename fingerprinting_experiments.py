@@ -86,7 +86,7 @@ def main(argv:list):
                 logging.info(f"Fingerprinting file '{file}' ({j+1} of {len(config_datasets[dataset_key])} files)...")
                 if not dry_run:
                     packets = PcapReader(file)
-                    conversations, _ = group_conversations(packets, progressbar=True)
+                    conversations = group_conversations(packets, progressbar=True)
 
                 for i, experiment in enumerate(experiments):
                     experiment_name = experiment["name"]

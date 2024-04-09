@@ -11,7 +11,7 @@ from utils import group_conversations, print_summary
 def fingerprint_packets(file, conversations=None, params={}, printer=lambda x:x):
     if conversations is None:
         packets = PcapReader(file)
-        conversations, conversations_with_id = group_conversations(packets)
+        conversations = group_conversations(packets)
 
     results = {}
     for key, packets_in_conversation in conversations.items():
